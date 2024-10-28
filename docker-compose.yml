@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  jenkins-master:
+    build: ./jenkins-master
+    container_name: jenkins-master
+    ports:
+      - "8080:8080"
+      - "50000:50000" # Port for agent communication
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - jenkins-network
+
+  nodejs-slave:
+    build: ./nodejs-slave
+    container_name: nodejs-slave
+    networks:
+      - jenkins-network
+    environment:
+      - JENKINS_URL=http://jenkins-master:8080
+      - JENKINS_AGENT_NAME=nodejs-slave
+      - JENKINS_SECRET=secret-nodejs # Replace with actual agent secret
+
+  java-slave:
+    build: ./java-slave
+    container_name: java-slave
+    networks:
+      - jenkins-network
+    environment:
+      - JENKINS_URL=http://jenkins-master:8080
+      - JENKINS_AGENT_NAME=java-slave
+      - JENKINS_SECRET=secret-java # Replace with actual agent secret
+
+networks:
+  jenkins-network:
+    driver: bridge
+
+volumes:
+  jenkins_home:
