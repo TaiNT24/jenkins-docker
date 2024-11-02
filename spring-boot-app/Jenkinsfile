@@ -56,8 +56,20 @@ pipeline {
                 // '''
                 dir('spring-boot-app') {
                 sh '''  
-                    // chown -R jenkins:jenkins ${WORKSPACE}
-                    // chmod -R 755 ${WORKSPACE}
+                    echo "Current user: $(whoami)"  
+                    echo "Current directory: $(pwd)"  
+                    echo "Initial permissions:"  
+                    ls -la  
+
+                    # Try direct permission setting (without sudo)  
+                    chown -R jenkins:jenkins ${WORKSPACE} || true
+                    chmod -R 755 ${WORKSPACE} || true  
+                    chown -R $(whoami):$(whoami) ${WORKSPACE} || true  
+
+                    # Create log file if it doesn't exist  
+                    touch app.log  
+                    chmod 666 app.log || true  
+                    
                     nohup java -jar target/hello-world-spring-1.0.0.jar --server.port=3001 > app.log 2>&1 &  
                     echo "Application started with PID: $!"  
                     sleep 5  
