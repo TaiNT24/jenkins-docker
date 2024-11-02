@@ -51,22 +51,17 @@ pipeline {
                 dir('spring-boot-app') {
                     script {
                         // Kill any process running on the specified port
-                        sh """
-                            PORT=${APP_PORT}
-                            PID=\$(lsof -t -i:\${PORT} || echo "")
-                            if [ ! -z "\${PID}" ]; then
-                                echo "Killing process \${PID} running on port \${PORT}"
-                                kill -9 \${PID}
-                            fi
-                        """
+                        // sh """
+                        //     PORT=${APP_PORT}
+                        //     PID=\$(lsof -t -i:\${PORT} || echo "")
+                        //     if [ ! -z "\${PID}" ]; then
+                        //         echo "Killing process \${PID} running on port \${PORT}"
+                        //         kill -9 \${PID}
+                        //     fi
+                        // """
                         
                         // Run the new jar file
-                        sh """  
-                            echo '#!/bin/bash' > start.sh  
-                            echo 'nohup java -jar target/${JAR_NAME} --server.port=${APP_PORT} > app.log 2>&1 &' >> start.sh  
-                            chmod +x start.sh  
-                            ./start.sh  
-                        """  
+                        sh "nohup java -jar target/${JAR_NAME} --server.port=${APP_PORT} \\> app.log 2\\>\\&1 &"
                     }
                 }
             }
