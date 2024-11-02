@@ -54,13 +54,16 @@ pipeline {
                 // sh '''
                 //     ./run.sh
                 // '''
+                dir('spring-boot-app') {
                 sh '''  
                     nohup java -jar target/hello-world-spring-1.0.0.jar --server.port=3001 > app.log 2>&1 &  
                     echo "Application started with PID: $!"  
                     sleep 5  
-                    ps aux | grep hello-world-spring-1.0.0.jar  
+                    ps aux | grep hello-world-spring-1.0.0.jar
                     cat app.log  
                 '''  
+                }
+
             }  
         }  
     }
