@@ -56,8 +56,8 @@ pipeline {
                 // '''
                 dir('spring-boot-app') {
                 sh '''  
-                    chown -R jenkins:jenkins /home/jenkins/${WORKSPACE}
-                    chmod -R 755 /home/jenkins/${WORKSPACE}
+                    chown -R jenkins:jenkins ${WORKSPACE}
+                    chmod -R 755 ${WORKSPACE}
                     nohup java -jar target/hello-world-spring-1.0.0.jar --server.port=3001 > app.log 2>&1 &  
                     echo "Application started with PID: $!"  
                     sleep 5  
