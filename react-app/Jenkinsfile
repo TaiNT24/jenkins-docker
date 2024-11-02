@@ -44,9 +44,9 @@ pipeline {
                 dir('react-app') {
                     sh '''
                         ls
-                        cp -r build/* /var/www/html/myapp
-                        chown -R www-data:www-data /var/www/html/myapp
-                        chmod -R 755 /var/www/html/myapp
+                        cp -r build/* /usr/share/nginx/html
+                        chown -R www-data:www-data /usr/share/nginx/html
+                        chmod -R 755 /usr/share/nginx/html
                         ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled/
                         systemctl reload nginx
                     '''
