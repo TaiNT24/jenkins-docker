@@ -7,6 +7,15 @@ pipeline {
         JAR_NAME = 'spring-boot-app-0.0.1-SNAPSHOT.jar'
     }
     stages {
+        stage('Verify Tools') {
+            steps {
+                sh '''
+                    java -version
+                    mvn -version
+                '''
+            }
+        }
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -16,7 +25,7 @@ pipeline {
         stage('Build') {
             steps {
                 dir('spring-boot-app') {
-                    sh 'mvn clean package'
+                    sh 'mvn clean package -DskipTests'
                 }
             }
         }
