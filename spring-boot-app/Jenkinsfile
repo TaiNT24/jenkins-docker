@@ -63,7 +63,7 @@ pipeline {
                         // Run the new jar file
                         sh """
                             ls target/
-                            nohup java -jar target/${JAR_NAME} --server.port=${APP_PORT} > app.log 2>&1 &
+                            nohup java -jar target/${JAR_NAME} --server.port=${APP_PORT} > app.log 2>\&1 \&
                             
                             # Store the start time  
                             start_time=\$(date +%s)  
@@ -78,7 +78,7 @@ pipeline {
                                 # Check if the port is in use  
                                 if lsof -i:${APP_PORT} >/dev/null 2>&1; then  
                                     echo "Application deployed successfully"  
-                                    exit 0  
+                                    exit 0
                                 fi  
 
                                 # Check if we've exceeded the maximum wait time  
