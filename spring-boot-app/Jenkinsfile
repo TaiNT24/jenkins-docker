@@ -62,8 +62,7 @@ pipeline {
                         
                         // Run the new jar file
                         sh """
-                            ls target/
-                            nohup java -jar target/${JAR_NAME} --server.port=${APP_PORT} \> app.log 2\>\&1 \&
+                            nohup java -jar target/${JAR_NAME} --server.port=${APP_PORT} > app.log 2>&1 &
                         """
                     }
                 }
