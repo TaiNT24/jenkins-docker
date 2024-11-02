@@ -46,9 +46,6 @@ pipeline {
                         npm install -g pm2
                         pm2 delete react-app || true
                         pm2 start $(which serve) --name "react-app" -- -s build -l 3000
-                        pm2 save
-                        pm2 startup | tail -n 1 | bash
-                        sleep 5
                         pm2 status
                     '''
                 }
