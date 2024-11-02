@@ -18,7 +18,13 @@ services:
 
   nodejs-slave:
     build: ./nodejs-slave
+    # privileged: true
+    # user: root
+    # ulimits:
+    #   nofile: 1024
     container_name: nodejs-slave
+    ports:
+      - "3000:3000"
     networks:
       - jenkins-network
     environment:
