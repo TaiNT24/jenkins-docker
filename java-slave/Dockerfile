@@ -33,6 +33,9 @@ RUN wget https://dlcdn.apache.org/maven/maven-3/${MAVEN_VERSION}/binaries/apache
 # Verify installations
 RUN java -version && mvn -version
 
+RUN chown -R jenkins:jenkins /home/jenkins
+RUN chmod -R 755 /home/jenkins
+
 USER jenkins
 
 # Expose working directory
