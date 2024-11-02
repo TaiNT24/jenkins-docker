@@ -88,12 +88,12 @@ pipeline {
         // }
 
 
-        stage('Archive') {
-            steps {
-                dir('react-app') {
-                    archiveArtifacts artifacts: 'build/**/*', fingerprint: true
-                }
-            }
-        }
+        // stage('Archive') {
+        //     steps {
+        //         dir('react-app') {
+        //             archiveArtifacts artifacts: 'build/**/*', fingerprint: true
+        //         }
+        //     }
+        // }
     }
 }
