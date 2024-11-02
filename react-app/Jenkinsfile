@@ -43,6 +43,7 @@ pipeline {
             steps {
                 dir('react-app') {
                     sh '''
+                        npm install -g serve
                         npm install -g pm2
                         pm2 delete react-app || true
                         pm2 start $(which serve) --name "react-app" -- -s build -l 3000
