@@ -42,7 +42,29 @@ pipeline {
         stage('Deploy') {
             steps {
                 dir('react-app') {
-                    sh 'npm install -g serve && nohup serve -s build -l 3000 > serve.log 2>&1 &'
+                    sh 'npm install -g serve'
+                    script {
+                        sh '''
+                            # Kill any existing serve process
+                            pkill -f "serve -s build" || true
+                            
+                            # Start serve and capture PID
+                            nohup serve -s build -l 3000 > serve.log 2>&1 & echo $! > serve.pid
+                            
+                            # Give it a moment to start
+                            sleep 5
+                            
+                            # Check if process is running
+                            if ps -p $(cat serve.pid) > /dev/null; then
+                                echo "Server started successfully on port 3000"
+                                cat serve.log
+                            else
+                                echo "Failed to start server"
+                                cat serve.log
+                                exit 1
+                            fi
+                        '''
+                    }
                 }
             }
         }
