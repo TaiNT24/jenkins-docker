@@ -47,7 +47,6 @@ pipeline {
                         cp -r build/* /usr/share/nginx/html
                         chown -R www-data:www-data /usr/share/nginx/html
                         chmod -R 755 /usr/share/nginx/html
-                        ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled/
                     '''
                 }
             }
