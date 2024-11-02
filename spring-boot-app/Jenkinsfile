@@ -3,7 +3,7 @@ pipeline {
         label 'java-slave'
     }
     environment {
-        APP_PORT = '8080'
+        APP_PORT = '3001'
         JAR_NAME = 'spring-boot-app-0.0.1-SNAPSHOT.jar'
     }
     stages {
