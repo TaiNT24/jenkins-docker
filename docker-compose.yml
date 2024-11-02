@@ -10,6 +10,11 @@ services:
       - jenkins_home:/var/jenkins_home
     networks:
       - jenkins-network
+    healthcheck:
+      test: ["CMD", "curl", "--silent", "--fail", "http://localhost:8080/login"]
+      interval: 10s
+      retries: 5
+      timeout: 10s
 
   nodejs-slave:
     build: ./nodejs-slave
@@ -18,8 +23,13 @@ services:
       - jenkins-network
     environment:
       - JENKINS_URL=http://jenkins-master:8080
-      - JENKINS_AGENT_NAME=nodejs-slave
-      - JENKINS_SECRET=secret-nodejs # Replace with actual agent secret
+      - JNLP_URL=http://jenkins-master:8080/computer/nodejs-slave/jenkins-agent.jnlp
+      - SECRET=c33c320acde294e84c2fdf3db060fcaf35e38cd3d08ef74967636a570d632b9e
+      - SLAVE_NAME=nodejs-slave
+    depends_on:
+      jenkins-master:
+        condition: service_healthy
+        restart: true
 
   java-slave:
     build: ./java-slave
@@ -28,8 +38,13 @@ services:
       - jenkins-network
     environment:
       - JENKINS_URL=http://jenkins-master:8080
-      - JENKINS_AGENT_NAME=java-slave
-      - JENKINS_SECRET=secret-java # Replace with actual agent secret
+      - JNLP_URL=http://jenkins-master:8080/computer/java-slave/jenkins-agent.jnlp
+      - SECRET=231a13368494acb12cee03efe6ab2e14e7b3cfcac988c13125abe0ea464c4936
+      - SLAVE_NAME=java-slave
+    depends_on:
+      jenkins-master:
+        condition: service_healthy
+        restart: true
 
 networks:
   jenkins-network:

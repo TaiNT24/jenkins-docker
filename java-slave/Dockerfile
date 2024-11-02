@@ -1,25 +1,16 @@
-# FROM jenkins/inbound-agent:latest
-FROM openjdk:11-jdk-slim
+FROM jenkins/inbound-agent:latest
 
 USER root
 
-# Install Java JDK
-# RUN apt-get update \
-#     && apt-get install -y software-properties-common \
-#     && add-apt-repository -y ppa:openjdk-r/ppa \
-#     && apt-get update \
-#     && apt-get install -y openjdk-11-jdk \
-#     && apt-get clean \
-#     && rm -rf /var/lib/apt/lists/*
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
 
-RUN apt-get update && apt-get install -y curl && \
-    curl --silent --show-error --location --fail \
-    --output /usr/share/jenkins/agent.jar \
-    https://repo.jenkins-ci.org/public/org/jenkins-ci/main/remoting/4.13/remoting-4.13.jar && \
+RUN apt-get update && \
+    apt-get install -y openjdk-17-jdk wget && \
     rm -rf /var/lib/apt/lists/*
 
 # Set Java environment variables
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 ENV PATH=$JAVA_HOME/bin:$PATH
 
 USER jenkins
@@ -27,6 +18,4 @@ USER jenkins
 # Expose working directory
 WORKDIR /home/jenkins
 
-# Command to run Jenkins agent
-
-ENTRYPOINT ["java", "-jar", "/usr/share/jenkins/agent.jar"]
+ENTRYPOINT ["/usr/local/bin/start.sh"]
