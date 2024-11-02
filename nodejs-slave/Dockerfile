@@ -22,7 +22,6 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Install basic tools and lsb-release first
 # RUN apt-get update && apt-get install -y \

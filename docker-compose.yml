@@ -40,6 +40,8 @@ services:
   java-slave:
     build: ./java-slave
     container_name: java-slave
+    ports:
+      - "3001:3001"
     networks:
       - jenkins-network
     environment:
