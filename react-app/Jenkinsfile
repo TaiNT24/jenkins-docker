@@ -41,14 +41,16 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh '''
-                    ls
-                    cp -r build/* /var/www/html/myapp
-                    chown -R www-data:www-data /var/www/html/myapp
-                    chmod -R 755 /var/www/html/myapp
-                    ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled/
-                    systemctl reload nginx
-                '''
+                dir('react-app') {
+                    sh '''
+                        ls
+                        cp -r build/* /var/www/html/myapp
+                        chown -R www-data:www-data /var/www/html/myapp
+                        chmod -R 755 /var/www/html/myapp
+                        ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled/
+                        systemctl reload nginx
+                    '''
+                }
             }
         }
 
