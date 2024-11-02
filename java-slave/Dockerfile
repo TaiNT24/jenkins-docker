@@ -36,7 +36,7 @@ RUN java -version && mvn -version
 RUN chown -R jenkins:jenkins /home/jenkins
 RUN chmod -R 755 /home/jenkins
 
-USER jenkins
+# USER jenkins
 
 # Expose working directory
 WORKDIR /home/jenkins
