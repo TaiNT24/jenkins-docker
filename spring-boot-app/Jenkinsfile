@@ -79,12 +79,4 @@ pipeline {
             }
         }
     }
-    
-    post {
-        always {
-            dir('spring-boot-app') {
-                junit '**/target/surefire-reports/*.xml'
-            }
-        }
-    }
 }
