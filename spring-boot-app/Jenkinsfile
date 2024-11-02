@@ -49,7 +49,7 @@ pipeline {
         stage('Deploy') {  
             steps {  
                 sh '''  
-                    cat > run.sh << 'EOL'  
+                    cat \\> run.sh << 'EOL'  
                     #!/bin/bash  
                     PID_FILE=application.pid  
 
