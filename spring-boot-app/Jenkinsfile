@@ -72,9 +72,12 @@ pipeline {
                         exit 1  
                     fi  
                     EOL  
-                                chmod +x run.sh  
-                                ./run.sh  
-                            '''  
+                    '''
+                    
+                    sh '''
+                        chmod +x run.sh  
+                        ./run.sh  
+                    '''
             }  
         }  
     }
