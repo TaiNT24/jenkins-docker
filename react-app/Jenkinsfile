@@ -43,10 +43,8 @@ pipeline {
             steps {
                 dir('react-app') {
                     sh '''
-                        ls
-                        cp -r build/* /usr/share/nginx/html
-                        chown -R www-data:www-data /usr/share/nginx/html
-                        chmod -R 755 /usr/share/nginx/html
+                        npm install -g serve
+                        serve -s build
                     '''
                 }
             }
