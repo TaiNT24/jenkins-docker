@@ -1,8 +1,4 @@
 #!/bin/sh
-
-# service docker start
-# timeout 30s bash -c 'until sudo docker info >/dev/null 2>&1; do echo "Waiting for Docker to start..."; sleep 1; done'
-# exec jenkins-agent "$@"
 apt-get update && apt-get install -y \
     git \
     curl \
@@ -25,10 +21,6 @@ mkdir -p /etc/apt/keyrings \
     && apt-get update \
     && apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin \
     && rm -rf /var/lib/apt/lists/*
-
-# echo "#!/bin/sh\nexit 0" > /usr/sbin/policy-rc.d
-# chmod +x /usr/sbin/policy-rc.d
-# rm -f /usr/sbin/policy-rc.d
 
 service docker start
 
