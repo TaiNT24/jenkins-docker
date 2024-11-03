@@ -40,6 +40,9 @@ services:
   java-slave:
     build: ./java-slave
     container_name: java-slave
+    privileged: true
+    ulimits:
+      nofile: 1024
     ports:
       - "3001:3001"
     networks:
