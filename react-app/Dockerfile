@@ -4,16 +4,16 @@ FROM node:latest as build-stage
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+# COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+# RUN npm install
 
 # Copy the rest of the application files to the working directory
 COPY . .
 
 # Build the React application
-RUN npm run build
+# RUN npm run build
 
 # Production Stage
 FROM nginx:alpine
