@@ -18,10 +18,10 @@ services:
 
   nodejs-slave:
     build: ./nodejs-slave
+    container_name: nodejs-slave
     # privileged: true
     # ulimits:
       # nofile: 1024
-    container_name: nodejs-slave
     # ports:
     #   - "3000:3000"
     volumes:
@@ -41,11 +41,13 @@ services:
   java-slave:
     build: ./java-slave
     container_name: java-slave
-    privileged: true
-    ulimits:
-      nofile: 1024
-    ports:
-      - "3001:3001"
+    # privileged: true
+    # ulimits:
+    #   nofile: 1024
+    # ports:
+    #   - "3001:3001"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - jenkins-network
     environment:
