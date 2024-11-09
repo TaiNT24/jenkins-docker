@@ -18,20 +18,20 @@ services:
 
   nodejs-slave:
     build: ./nodejs-slave
-    privileged: true
-    ulimits:
-      nofile: 1024
+    # privileged: true
+    # ulimits:
+      # nofile: 1024
     container_name: nodejs-slave
-    ports:
-      - "3000:3000"
-    # volumes:
-    #   - /var/run/docker.sock:/var/run/docker.sock
+    # ports:
+    #   - "3000:3000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - jenkins-network
     environment:
       - JENKINS_URL=http://jenkins-master:8080
       - JNLP_URL=http://jenkins-master:8080/computer/nodejs-slave/jenkins-agent.jnlp
-      - SECRET=c33c320acde294e84c2fdf3db060fcaf35e38cd3d08ef74967636a570d632b9e
+      - SECRET=4e28eb11d47d3f345b90d12a879b8b8c1de576c69e98274c3ea45a9b192bb616
       - SLAVE_NAME=nodejs-slave
     depends_on:
       jenkins-master:
@@ -51,7 +51,7 @@ services:
     environment:
       - JENKINS_URL=http://jenkins-master:8080
       - JNLP_URL=http://jenkins-master:8080/computer/java-slave/jenkins-agent.jnlp
-      - SECRET=231a13368494acb12cee03efe6ab2e14e7b3cfcac988c13125abe0ea464c4936
+      - SECRET=4727eac17510be3b4f75485b326c2aeb2f087af07f67a1c7addcd15a1033a91f
       - SLAVE_NAME=java-slave
     depends_on:
       jenkins-master:

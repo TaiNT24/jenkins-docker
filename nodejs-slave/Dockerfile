@@ -26,5 +26,4 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
 # Expose working directory
 WORKDIR /home/jenkins
 
-EXPOSE 3000
 ENTRYPOINT ["/usr/local/bin/start.sh"]
